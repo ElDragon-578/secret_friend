@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
-import secretFriendImage from "/secret_friend2.png"
+import secretFriendImage from "/secret_friend2.png";
 
 export function WelcomePage() {
-  const [arrayFriends, setArrysFriends] = useState([
-  ]);
+  const [arrayFriends, setArrysFriends] = useState([]);
 
   const [inputFriend, setInputFriend] = useState("");
 
   const radius = 250; //circle radius
 
   const handleChange = (e) => {
-    setInputFriend(e.target.value)
+    setInputFriend(e.target.value);
   };
 
   // useEffect(()=>{
@@ -18,8 +17,13 @@ export function WelcomePage() {
   // },[inputFriend])
 
   const handlePush = (e) => {
-    setArrysFriends((prev) =>[...prev, inputFriend])
-    setInputFriend("")
+    if (inputFriend.trim() !== "") {
+      if (!arrayFriends.includes(inputFriend.trim())) {setArrysFriends((prev) => [...prev, inputFriend.trim()])}
+      else{return alert("Este amigo ya existe porfavor inserte uno nuevo")};
+      setInputFriend("");
+    }else{
+      return alert("Porfavor inserte un nombre antes de continuar")
+    }
   };
 
   return (
@@ -35,7 +39,7 @@ export function WelcomePage() {
             value={inputFriend}
           />
           <button
-            className="bg-blue-600 text-white px-4 py-1 rounded-md hover:bg-blue-700"
+            className="bg-[#33312B] text-white px-4 py-1 rounded-md transition-transform duration-300 ease-in-out  hover:bg-[#756A3B] hover:scale-125"
             onClick={handlePush}
           >
             Enviar
@@ -49,12 +53,12 @@ export function WelcomePage() {
           return (
             <div
               key={index}
-              className="w-20 h-20 rounded-full bg-blue-950 text-white flex items-center justify-center absolute transition-transform duration-700 ease-out"
+              className="w-20 h-20 rounded-full bg-[#F4C200] text-white flex items-center justify-center absolute transition-transform duration-700 ease-out hover:scale-105"
               style={{
                 transform: `translate(${x}px, ${y}px)`,
               }}
             >
-              <h1 className="text-sm text-center">{friend}</h1>
+              <h1 className="text-sm text-center leading-none">{friend}</h1>
             </div>
           );
         })}
